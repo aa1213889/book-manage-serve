@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
 })
 
 connection.connect(() => {
-  console.log('链接haola')
+  console.log('mysql链接好了')
 })
 
 module.exports = connection
