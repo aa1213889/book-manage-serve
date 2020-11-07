@@ -3,27 +3,29 @@ const router = express.Router();
 const db = require('../src/database/mongoose')
 const Schema = db.Schema
 
+const tool = require('../src/tool/index')
+
 const catSchema = new Schema({
   name: { type: String, required: true },
   age: Number,
   hobby: String
 })
 const Cat = db.model('Cat', catSchema)
-const kittyCat = new Cat({ name: '凯蒂', age: 20, hobby: '恰鱼' })
-kittyCat.save((err) => {
-  if (err) return console.log(err)
-  console.log('保存成功1')
-})
 
 
 /*登录*/
 router.get('/login', function (req, res, next) {
-  res.send('respond with a resource')
+  res.send(tool.uuid())
 })
 
 /*注册*/
 router.get('/register', function (req, res, next) {
-  res.send('23333333333333')
+  const kittyCat = new Cat({ name: '凯蒂', age: 20, hobby: '恰鱼' })
+  kittyCat.save((err) => {
+    if (err) return console.log(err)
+    console.log('保存成功1')
+  })
+
 })
 
 /*登出*/

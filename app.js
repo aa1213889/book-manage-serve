@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
 //引入业务模块
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var bookRouter = require('./routes/book/bookManage');
+var indexRouter = require('./routes/index')
+var testRouter = require('./routes/test')
+var bookRouter = require('./routes/book/bookManage')
+const userRouter = require('./routes/user/userRouter')
 
 var app = express()
 
@@ -22,13 +23,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);   //将路由容器挂载到app中
-app.use('/users', usersRouter);
-app.use('/book', bookRouter);
+app.use('/test', testRouter)
+app.use('/book', bookRouter)
+app.use('/user', userRouter)
 
-// catch 404 and forward to error handler
+// 404中间件处理
 app.use(function (req, res, next) {
-  next(createError(404));
-});
+  next(createError(404))
+})
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -39,7 +41,7 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+})
 
 //设置跨域访问
 app.all('*', (req, res, next) => {
