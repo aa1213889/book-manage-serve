@@ -1,6 +1,8 @@
 const db = require('../database/mongoose')
 const tool = require('../tool/index')
 const md5 = require('md5-node')
+const session = require('express-session')
+
 /**
  * 用户集合
  */
@@ -36,6 +38,7 @@ const loginUser = (data, success, error) => {
   const [_password, _email] = [md5(data.password), data.email]
   User.findOne({ password: _password, email: _email }, (err, res) => {
     if (res === null) return error('邮箱或密码有误')
+
     success(res)
   })
 }
