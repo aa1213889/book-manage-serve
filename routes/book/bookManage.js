@@ -1,26 +1,29 @@
 const express = require('express') //1.引入express
 const router = express.Router() //2.创建路由容器
-// const db = require('../../public/js/mysql')
+const book = require('../../src/book')
 
-// const table = 'emp'
+router.post('/info', (req, res) => {
+  book.creatUser(req.body, (data) => {
+    res.json({ status: 200, message: 'ok', playload: data })
+  }, (error) => {
+    res.json({ status: 500, message: error })
+  })
+})
 
+router.post('/add', (req, res) => {
+  book.addBook(req.body, (data) => {
+    res.json({ status: 200, message: 'ok', playload: data })
+  }, (error) => {
+    res.json({ status: 500, message: '添加失败，请检查信息完整性' })
+  })
+})
 
+router.post('/usersInfo', (req, res) => {
+  book.usersInfo(req.body, (data) => {
+    res.json({ status: 200, message: 'ok', playload: data })
+  }, (error) => {
+    res.json({ status: 500, message: error })
+  })
+})
 
-// router.get('/query', (req, res, next) => { //3.查询api 
-//   db.query(`select *from ${table}`, (err, result) => {
-//     if (err) return console.log('[SELECT ERROR]:', err.message)
-//     res.json({ status: 200, data: result })
-//   })
-// })
-
-// //删除图书信息
-// router.post('/delete', (req, res, next) => {
-//   let _bookId = req.body.id
-//   console.log(`id is ${_bookId}`)
-//   db.query(`delete from ${table} where eno = ${_bookId}`, (err, result) => {
-//     if (err) return console.log('[SELECT ERROR]:', err.message)
-//     res.json({ status: 200, data: result })
-//   })
-// })
-
-module.exports = router //4.导出路由
+module.exports = router 

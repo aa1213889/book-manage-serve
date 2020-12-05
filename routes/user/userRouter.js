@@ -1,10 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const user = require('../../src/user/user')
-
-router.get('/query', (req, res, next) => {
-  res.send('233')
-})
+const user = require('../../src/user')
 
 router.post('/register', (req, res) => {
   user.creatUser(req.body, (data) => {
@@ -21,6 +17,15 @@ router.post('/login', (req, res) => {
     res.json({ status: 500, message: error })
   })
 })
+
+router.post('/usersInfo', (req, res) => {
+  user.usersInfo(req.body, (data) => {
+    res.json({ status: 200, message: 'ok', playload: data })
+  }, (error) => {
+    res.json({ status: 500, message: error })
+  })
+})
+
 
 
 module.exports = router
