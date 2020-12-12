@@ -10,7 +10,7 @@ router.post('/info', (req, res) => {
   })
 })
 
-router.post('/add', (req, res) => {
+router.post('/addBook', (req, res) => {
   book.addBook(req.body, (data) => {
     res.json({ status: 200, message: 'ok', playload: data })
   }, (error) => {
@@ -18,8 +18,8 @@ router.post('/add', (req, res) => {
   })
 })
 
-router.post('/usersInfo', (req, res) => {
-  book.usersInfo(req.body, (data) => {
+router.post('/query', (req, res) => {
+  book.queryBook(req.body, (data) => {
     res.json({ status: 200, message: 'ok', playload: data })
   }, (error) => {
     res.json({ status: 500, message: error })

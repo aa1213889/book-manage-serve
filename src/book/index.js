@@ -15,8 +15,9 @@ const bookSchema = new db.Schema({
   id: { type: String, required: true, unique: true },
   type: { type: Number, required: true, default: 0 },
   author: { type: String, required: true },
-  press: { type: Date, required: true },
-  cover: { type: String },
+  press: { type: String, required: true },
+  date: { type: Date },
+  cover: { type: String, default: '' },
   price: { type: Number, required: true },
   count: { type: Number, default: 0 }
 })
@@ -27,14 +28,19 @@ const Book = db.model('Book', bookSchema)
 
 //查询图书信息
 const queryBook = (data, success, error) => {
-
+  Book.find({ ...data }, (err, res) => {
+    if (res === null) return
+    success(res)
+  })
 }
 
 //图书录入
 const addBook = (data, success, error) => {
   new Book({
-    ...data
+    ...data,
+    date: new Date()
   }).save(err => {
+    console.log(err)
     if (err) return error(err)
     success('保存成功')
   })
